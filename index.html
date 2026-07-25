@@ -1,123 +1,821 @@
 <!DOCTYPE html>
-<html>
-<title>CV</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
-</style>
-<body class="w3-light-grey">
-
-<!-- Page Container -->
-<div class="w3-content w3-margin-top" style="max-width:1400px;">
-
-  <!-- The Grid -->
-  <div class="w3-row-padding">
-  
-    <!-- Left Column -->
-    <div class="w3-third">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S. Aravindh Akshay - Portfolio</title>
     
-      <div class="w3-white w3-text-grey w3-card-4">
-        <div class="w3-display-container">
-          <img src="/Myimg.jpg" style="width:100%" alt="Avatar">
-          <div class="w3-display-bottomleft w3-container w3-text-black">
-            <h2>S Aravindh Akshay</h2>
-          </div>
-        </div>
-        <div class="w3-container">
-          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>UI UX Developer, Frontend Developer</p>
-          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Hyderabad</p>
-          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>aravindhakshay97@gmail.com</p>
-          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>+919573467126</p>
-          <hr>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- GSAP for scroll animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#030712',
+                        darker: '#000000',
+                        accent: '#3b82f6',
+                        accentHover: '#2563eb',
+                        surface: 'rgba(31, 41, 55, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
 
-          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b></p>
-          <p>HTML, CSS, JavaScrip, jQuery, Bootstrap</p>
-          <div class="w3-light-grey w3-round-xlarge w3-small">
-            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%">90%</div>
-          </div>
-          <p>ReactJs0), NodeJs, Typescript</p>
-          <div class="w3-light-grey w3-round-xlarge w3-small">
-            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:85%">
-              <div class="w3-center w3-text-white">85%</div>
+        /* Starfield background from video inspiration */
+        #starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle var(--duration) ease-in-out infinite alternate;
+        }
+
+        .star.blue { background-color: #60a5fa; }
+        .star.purple { background-color: #c084fc; }
+
+        @keyframes twinkle {
+            0% { opacity: 0.1; transform: scale(0.8); }
+            100% { opacity: 0.8; transform: scale(1.2); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #374151;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4b5563;
+        }
+
+        /* Glassmorphism utility */
+        .glass {
+            background: rgba(17, 24, 39, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: linear-gradient(145deg, rgba(31,41,55,0.4) 0%, rgba(17,24,39,0.8) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        /* Hero Text Animation setup */
+        .reveal-text {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        }
+        
+        /* Section styling */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 6rem 1rem;
+            position: relative;
+        }
+        
+        .timeline-dot {
+            position: relative;
+        }
+        .timeline-dot::before {
+            content: '';
+            position: absolute;
+            left: -33px; /* Adjust based on padding */
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            box-shadow: 0 0 10px #3b82f6;
+        }
+        
+        .timeline-line::after {
+            content: '';
+            position: absolute;
+            left: 15px; /* Adjust based on padding */
+            top: 20px;
+            bottom: -20px;
+            width: 2px;
+            background: linear-gradient(to bottom, #3b82f6, transparent);
+            z-index: 0;
+        }
+        
+        /* Skill tags */
+        .skill-tag {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+        .skill-tag:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+            color: #fff;
+        }
+        
+        /* Nav links */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-accent selection:text-white">
+
+    <div id="starfield"></div>
+
+    <nav class="fixed w-full z-50 glass top-0 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <img src="assets/userpic.png" alt="Aravindh Akshay" class="w-10 h-10 rounded-full object-cover border-2 border-accent">
+                    <a href="#" class="text-2xl font-display font-bold tracking-tighter">
+                        S. Aravindh<span class="text-accent">.</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#about" class="nav-link hover:text-white px-3 py-2 rounded-md text-sm font-medium text-gray-300 transition-colors">About</a>
+                        <a href="#experience" class="nav-link hover:text-white px-3 py-2 rounded-md text-sm font-medium text-gray-300 transition-colors">Experience</a>
+                        <a href="#skills" class="nav-link hover:text-white px-3 py-2 rounded-md text-sm font-medium text-gray-300 transition-colors">Skills</a>
+                        <a href="#projects" class="nav-link hover:text-white px-3 py-2 rounded-md text-sm font-medium text-gray-300 transition-colors">Projects</a>
+                        <a href="assets/resume.pdf" download class="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2 group">
+                            <i class="fas fa-download group-hover:-translate-y-1 transition-transform"></i> Resume
+                        </a>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
             </div>
-          </div>
-          <p>Adobe- XD, Photoshop, Illustrator, Dreamweaver</p>
-          <div class="w3-light-grey w3-round-xlarge w3-small">
-            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:80%">80%</div>
-          </div>
-          <p>Unity3d, WebXR, BabylonJs,ThreeJs, </p>
-          <div class="w3-light-grey w3-round-xlarge w3-small">
-            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:80%">80%</div>
-          </div>
-          <br>
-
-          <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Languages</b></p>
-          <p>English</p>
-          <div class="w3-light-grey w3-round-xlarge">
-            <div class="w3-round-xlarge w3-teal" style="height:24px;width:90%"></div>
-          </div>
-          <p>French</p>
-          <div class="w3-light-grey w3-round-xlarge">
-            <div class="w3-round-xlarge w3-teal" style="height:24px;width:55%"></div>
-          </div>
-          <p>Hindi</p>
-          <div class="w3-light-grey w3-round-xlarge">
-            <div class="w3-round-xlarge w3-teal" style="height:24px;width:65%"></div>
-          </div>
-          <br>
         </div>
-      </div><br>
-
-    <!-- End Left Column -->
-    </div>
-
-    <!-- Right Column -->
-    <div class="w3-twothird">
-    
-      <div class="w3-container w3-card w3-white w3-margin-bottom">
-        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work Experience</h2>
-        <div class="w3-container">
-          <h5 class="w3-opacity"><b>Software Engineer</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Oct 2021-Oct 2022</h6>
-          <p>Omnipay</p>
-          <hr>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden glass border-t border-white/10 absolute w-full">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col">
+                <a href="#about" class="hover:bg-white/10 text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="#experience" class="hover:bg-white/10 text-white block px-3 py-2 rounded-md text-base font-medium">Experience</a>
+                <a href="#skills" class="hover:bg-white/10 text-white block px-3 py-2 rounded-md text-base font-medium">Skills</a>
+                <a href="#projects" class="hover:bg-white/10 text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                <a href="assets/resume.pdf" download class="hover:bg-white/10 text-accent block px-3 py-2 rounded-md text-base font-medium flex items-center gap-2">
+                    <i class="fas fa-download"></i> Download Resume
+                </a>
+            </div>
         </div>
-        <div class="w3-container">
-          <h5 class="w3-opacity"><b>UI UX Developer</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jan 2020 - Oct 2020</h6>
-          <p>Sensen Networks</p>
-          <hr>
-        </div>
-        <div class="w3-container">
-          <h5 class="w3-opacity"><b>UI UX Developer</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Oct 2018 - Apr 2020</h6>
-          <p>Nestor Analytics</p>
-          <hr>
-        </div>
-      </div>
+    </nav>
 
-      <div class="w3-container w3-card w3-white">
-        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Education</h2>
-      
-        <div class="w3-container">
-          <h5 class="w3-opacity"><b>CSE</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2015 - 2019</h6>
-          <p>B.Tech</p><br>
+    <section id="hero" class="relative pt-32 pb-16 md:pt-48 md:pb-32 flex items-center justify-center text-center overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 z-10">
+            <div class="hero-content">
+                <p class="text-accent font-medium tracking-widest uppercase mb-4 opacity-0 hero-elem translate-y-4">Senior Frontend Engineer & Team Lead</p>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tighter leading-tight mb-6">
+                    <span class="block overflow-hidden"><span class="block opacity-0 hero-text translate-y-full">S. Aravindh</span></span>
+                    <span class="block overflow-hidden"><span class="block opacity-0 hero-text translate-y-full"><span class="text-accent">Akshay</span></span></span>
+                </h1>
+                <p class="mt-6 max-w-2xl mx-auto text-xl text-gray-400 opacity-0 hero-elem translate-y-4">
+                    Architecting scalable web applications and intuitive UI experiences.
+                </p>
+                
+                <div class="mt-10 flex justify-center gap-4 opacity-0 hero-elem translate-y-4 flex-wrap">
+                    <a href="#projects" class="bg-accent hover:bg-accentHover text-white px-8 py-3 rounded-full font-medium transition-all hover:scale-105 shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+                        View Work
+                    </a>
+                    <a href="https://github.com/skynet-bit" target="_blank" class="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-8 py-3 rounded-full font-medium transition-all hover:scale-105 flex items-center gap-2">
+                        <i class="fab fa-github text-xl"></i> GitHub
+                    </a>
+                </div>
+            </div>
         </div>
-      </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 opacity-50 animate-bounce">
+            <i class="fas fa-chevron-down text-2xl text-white"></i>
+        </div>
+    </section>
 
-    <!-- End Right Column -->
-    </div>
-    
-  <!-- End Grid -->
-  </div>
-  
-  <!-- End Page Container -->
-</div>
+    <section id="about" class="bg-darker/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-5 relative gs-reveal-left opacity-0 translate-x-[-50px]">
+                    <div class="aspect-square rounded-2xl overflow-hidden glass p-2 relative z-10 border border-white/10">
+                        <!-- Placeholder for Profile Image, using a generated avatar based on the PDF image -->
+                        <img src="assets/userpic.png" alt="S. Aravindh Akshay" class="w-full h-full object-cover rounded-xl filter grayscale hover:grayscale-0 transition-all duration-500">
+                    </div>
+                    <!-- Decorative background element -->
+                    <div class="absolute -top-4 -left-4 w-full h-full border border-accent/30 rounded-2xl z-0"></div>
+                    <div class="absolute -bottom-4 -right-4 w-full h-full bg-accent/10 rounded-2xl z-0 blur-xl"></div>
+                </div>
+                
+                <div class="lg:col-span-7 gs-reveal-right opacity-0 translate-x-[50px]">
+                    <h2 class="text-3xl md:text-5xl font-display font-bold mb-6">Professional <span class="text-accent">Profile</span></h2>
+                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                        Senior Frontend Engineer and Team Lead specializing in architecting scalable web applications, designing reusable UI component libraries, and optimizing performance for complex data flows. 
+                    </p>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">
+                        Deep expertise in React ecosystems, modern CI/CD deployment pipelines, and cross-functional leadership. Proven track record of guiding junior developers, conducting rigorous code reviews, and delivering intuitive, high-performance, user-centric solutions.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                        <div class="glass-card p-4 rounded-xl">
+                            <h3 class="text-3xl font-bold text-accent mb-1">8+</h3>
+                            <p class="text-sm text-gray-400">Years Experience</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl">
+                            <h3 class="text-3xl font-bold text-accent mb-1">100+</h3>
+                            <p class="text-sm text-gray-400">Devs Mentored</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl">
+                            <h3 class="text-3xl font-bold text-accent mb-1">5+</h3>
+                            <p class="text-sm text-gray-400">Web Frameworks</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl">
+                            <h3 class="text-3xl font-bold text-accent mb-1">100%</h3>
+                            <p class="text-sm text-gray-400">Agile Delivery</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex items-center gap-4 text-gray-400 text-sm">
+                        <a href="mailto:aravindhakshay97@gmail.com" class="hover:text-accent transition-colors"><i class="fas fa-envelope mr-2"></i> aravindhakshay97@gmail.com</a>
+                        <span class="hidden md:inline">•</span>
+                        <span><i class="fas fa-phone mr-2"></i> +91 6302532350</span>
+                        <span class="hidden md:inline">•</span>
+                        <span><i class="fas fa-map-marker-alt mr-2"></i> Hyderabad, India</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <section id="skills" class="relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="text-center mb-16 gs-reveal-up opacity-0 translate-y-[50px]">
+                <h2 class="text-3xl md:text-5xl font-display font-bold mb-4">Core <span class="text-accent">Competencies</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Technologies and frameworks I utilize to bring ideas to life.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10 max-w-4xl mx-auto mb-16">
+                <!-- Skill Bars based on PDF visuals -->
+                <div class="skill-item gs-reveal-up opacity-0 translate-y-[30px]">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-medium">React / Next.js</span>
+                    </div>
+                    <div class="w-full bg-gray-800 rounded-full h-2.5">
+                        <div class="bg-accent h-2.5 rounded-full" style="width: 95%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-item gs-reveal-up opacity-0 translate-y-[30px]">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-medium">TypeScript / JS</span>
+                    </div>
+                    <div class="w-full bg-gray-800 rounded-full h-2.5">
+                        <div class="bg-accent h-2.5 rounded-full" style="width: 90%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-item gs-reveal-up opacity-0 translate-y-[30px]">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-medium">UI Architecture</span>
+                    </div>
+                    <div class="w-full bg-gray-800 rounded-full h-2.5">
+                        <div class="bg-accent h-2.5 rounded-full" style="width: 85%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-item gs-reveal-up opacity-0 translate-y-[30px]">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-medium">Node.js / Express</span>
+                    </div>
+                    <div class="w-full bg-gray-800 rounded-full h-2.5">
+                        <div class="bg-accent h-2.5 rounded-full" style="width: 85%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-item gs-reveal-up opacity-0 translate-y-[30px]">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-medium">AWS / Firebase</span>
+                    </div>
+                    <div class="w-full bg-gray-800 rounded-full h-2.5">
+                        <div class="bg-accent h-2.5 rounded-full" style="width: 75%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-item gs-reveal-up opacity-0 translate-y-[30px]">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-medium">CI/CD & DevOps</span>
+                    </div>
+                    <div class="w-full bg-gray-800 rounded-full h-2.5">
+                        <div class="bg-accent h-2.5 rounded-full" style="width: 80%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Skill Tags -->
+            <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto gs-reveal-up opacity-0 translate-y-[30px]">
+                <span class="skill-tag">Redux</span>
+                <span class="skill-tag">Angular</span>
+                <span class="skill-tag">Material-UI</span>
+                <span class="skill-tag">Tailwind CSS</span>
+                <span class="skill-tag">MongoDB</span>
+                <span class="skill-tag">Docker</span>
+                <span class="skill-tag">GitLab CI/CD</span>
+                <span class="skill-tag">Mocha / Chai</span>
+                <span class="skill-tag">Figma</span>
+                <span class="skill-tag">Micro-frontends</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="bg-darker/50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="text-center mb-16 gs-reveal-up opacity-0 translate-y-[50px]">
+                <h2 class="text-3xl md:text-5xl font-display font-bold mb-4">Experience <span class="text-accent">Timeline</span></h2>
+            </div>
+            
+            <div class="relative pl-8 md:pl-0">
+                <!-- Vertical Line -->
+                <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-white/10 z-0"></div>
+                <div class="md:hidden absolute left-4 w-0.5 h-full bg-white/10 z-0"></div>
+
+                <!-- Job 1 -->
+                <div class="mb-12 md:flex justify-between items-center w-full right-timeline relative z-10 group job-card">
+                    <div class="order-1 md:w-5/12 hidden md:block text-right pr-8">
+                        <p class="text-accent font-bold text-sm tracking-wider uppercase">Jan 2025 - Nov 2025</p>
+                    </div>
+                    <div class="z-20 flex items-center order-1 bg-darker shadow-xl w-6 h-6 rounded-full border-4 border-accent absolute left-[-11px] md:left-1/2 md:-translate-x-1/2 top-1 group-hover:scale-125 transition-transform duration-300"></div>
+                    <div class="order-1 glass-card rounded-xl shadow-xl md:w-5/12 px-6 py-6 ml-6 md:ml-0 opacity-0 translate-x-[50px] md:-translate-x-[50px] gs-reveal-timeline">
+                        <p class="text-accent font-bold text-xs tracking-wider uppercase mb-1 md:hidden">Jan 2025 - Nov 2025</p>
+                        <h3 class="font-bold text-xl text-white">Senior Software Developer</h3>
+                        <h4 class="text-md text-gray-400 mb-3">SBS Solutions Pvt. Ltd</h4>
+                        <ul class="list-disc pl-5 text-gray-300 text-sm space-y-2">
+                            <li>Built an internal Agentic AI development platform, enabling automation across enterprise systems using Angular, TypeScript, and Node.js.</li>
+                            <li>Designed and developed highly scalable components for complex AI workflows, establishing UI/UX prototypes in Figma.</li>
+                            <li>Engineered a robust internal UI component library, strictly enforcing workflow consistency and dramatically reducing turnaround time.</li>
+                            <li>Conducted rigorous code reviews, guided junior developers, and maintained test coverage using Mocha, Chai, and Karma.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Job 2 -->
+                <div class="mb-12 md:flex justify-between items-center w-full flex-row-reverse left-timeline relative z-10 group job-card">
+                    <div class="order-1 md:w-5/12 hidden md:block text-left pl-8">
+                        <p class="text-accent font-bold text-sm tracking-wider uppercase">Dec 2023 - Dec 2024</p>
+                    </div>
+                    <div class="z-20 flex items-center order-1 bg-darker shadow-xl w-6 h-6 rounded-full border-4 border-gray-600 absolute left-[-11px] md:left-1/2 md:-translate-x-1/2 top-1 group-hover:border-accent group-hover:scale-125 transition-all duration-300"></div>
+                    <div class="order-1 glass-card rounded-xl shadow-xl md:w-5/12 px-6 py-6 ml-6 md:ml-0 opacity-0 translate-x-[50px] gs-reveal-timeline">
+                        <p class="text-accent font-bold text-xs tracking-wider uppercase mb-1 md:hidden">Dec 2023 - Dec 2024</p>
+                        <h3 class="font-bold text-xl text-white">Full Stack Developer</h3>
+                        <h4 class="text-md text-gray-400 mb-3">Efund Technical Services</h4>
+                        <ul class="list-disc pl-5 text-gray-300 text-sm space-y-2">
+                            <li>Led the frontend architecture, UI design, and development of a scalable CRM web application leveraging Next.js, TypeScript, and MUI.</li>
+                            <li>Architected dashboards, workflow engines, and administrative tools tailored to complex business requirements and AI workflows.</li>
+                            <li>Overhauled GitLab CI/CD pipelines to optimize deployment workflows and integrated secure APIs via Node.js and AWS.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Job 3 -->
+                <div class="mb-12 md:flex justify-between items-center w-full right-timeline relative z-10 group job-card">
+                    <div class="order-1 md:w-5/12 hidden md:block text-right pr-8">
+                        <p class="text-accent font-bold text-sm tracking-wider uppercase">Nov 2022 - Sep 2023</p>
+                    </div>
+                    <div class="z-20 flex items-center order-1 bg-darker shadow-xl w-6 h-6 rounded-full border-4 border-gray-600 absolute left-[-11px] md:left-1/2 md:-translate-x-1/2 top-1 group-hover:border-accent group-hover:scale-125 transition-all duration-300"></div>
+                    <div class="order-1 glass-card rounded-xl shadow-xl md:w-5/12 px-6 py-6 ml-6 md:ml-0 opacity-0 translate-x-[50px] md:-translate-x-[50px] gs-reveal-timeline">
+                        <p class="text-accent font-bold text-xs tracking-wider uppercase mb-1 md:hidden">Nov 2022 - Sep 2023</p>
+                        <h3 class="font-bold text-xl text-white">Web Development Tutor</h3>
+                        <h4 class="text-md text-gray-400 mb-3">Soft Learn Path</h4>
+                        <ul class="list-disc pl-5 text-gray-300 text-sm space-y-2">
+                            <li>Mentored 100+ learners on frontend best practices, focusing on React, React Native, JavaScript OOP, and modern CI/CD deployments.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Additional older jobs condensed for layout -->
+                <div class="text-center mt-12 opacity-0 gs-reveal-up">
+                    <button id="show-more-jobs" class="text-gray-400 hover:text-white transition-colors border-b border-gray-600 hover:border-white pb-1">
+                        View Earlier Experience
+                    </button>
+                </div>
+                
+                <!-- Hidden earlier jobs -->
+                <div id="earlier-jobs" class="hidden mt-12">
+                     <!-- Job 4 -->
+                    <div class="mb-12 md:flex justify-between items-center w-full flex-row-reverse left-timeline relative z-10 group job-card">
+                        <div class="order-1 md:w-5/12 hidden md:block text-left pl-8">
+                            <p class="text-accent font-bold text-sm tracking-wider uppercase">Oct 2021 - Aug 2022</p>
+                        </div>
+                        <div class="z-20 flex items-center order-1 bg-darker shadow-xl w-6 h-6 rounded-full border-4 border-gray-600 absolute left-[-11px] md:left-1/2 md:-translate-x-1/2 top-1 group-hover:border-accent group-hover:scale-125 transition-all duration-300"></div>
+                        <div class="order-1 glass-card rounded-xl shadow-xl md:w-5/12 px-6 py-6 ml-6 md:ml-0">
+                            <p class="text-accent font-bold text-xs tracking-wider uppercase mb-1 md:hidden">Oct 2021 - Aug 2022</p>
+                            <h3 class="font-bold text-xl text-white">Software Developer</h3>
+                            <h4 class="text-md text-gray-400 mb-3">OmniPay/Datman</h4>
+                            <ul class="list-disc pl-5 text-gray-300 text-sm space-y-2">
+                                <li>Engineered customer-facing frontend components using ReactJS, establishing reusable design patterns.</li>
+                                <li>Spearheaded deployments and production monitoring, coordinating feature rollouts.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Condensed List for oldest jobs -->
+                    <div class="ml-6 md:ml-0 glass-card p-6 rounded-xl md:w-1/2 md:mx-auto relative z-10">
+                         <h3 class="font-bold text-lg text-white border-b border-white/10 pb-2 mb-4">Previous Roles</h3>
+                         <div class="space-y-4">
+                             <div>
+                                 <h4 class="font-medium text-white text-sm">Full Stack Developer | QNature <span class="text-gray-500 text-xs float-right">Apr 2021 - Jun 2021</span></h4>
+                                 <p class="text-xs text-gray-400">ReactJS/React Native eco-commerce platform with Firebase.</p>
+                             </div>
+                             <div>
+                                 <h4 class="font-medium text-white text-sm">Full Stack Developer | ATroads <span class="text-gray-500 text-xs float-right">Oct 2020 - Feb 2021</span></h4>
+                                 <p class="text-xs text-gray-400">Live tracking modules with ReactJS, React Native, Node.js.</p>
+                             </div>
+                             <div>
+                                 <h4 class="font-medium text-white text-sm">Frontend Developer | Sensen Networks <span class="text-gray-500 text-xs float-right">May 2020 - Mar 2021</span></h4>
+                                 <p class="text-xs text-gray-400">UI modernization for legacy traffic monitoring platforms.</p>
+                             </div>
+                             <div>
+                                 <h4 class="font-medium text-white text-sm">Full Stack Developer | Nestor Analytics <span class="text-gray-500 text-xs float-right">Oct 2018 - Apr 2020</span></h4>
+                                 <p class="text-xs text-gray-400">Analytics modules and dashboards utilizing the MERN stack.</p>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gs-reveal-up opacity-0 translate-y-[50px]">
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-display font-bold mb-4">Featured <span class="text-accent">Projects</span></h2>
+                    <p class="text-gray-400 max-w-xl">A selection of recent works and open-source contributions.</p>
+                </div>
+                <a href="https://github.com/skynet-bit" target="_blank" class="mt-4 md:mt-0 text-accent hover:text-white transition-colors flex items-center gap-2 group">
+                    View full GitHub <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 (Mock based on skills) -->
+                <div class="glass-card rounded-2xl overflow-hidden group gs-reveal-up opacity-0 translate-y-[50px]">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/40 to-black mix-blend-overlay z-10"></div>
+                        <!-- Abstract pattern representing AI/Workflow -->
+                        <div class="w-full h-full flex items-center justify-center text-6xl text-white/10 group-hover:scale-110 transition-transform duration-700">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                    </div>
+                    <div class="p-6 relative">
+                        <div class="absolute -top-6 right-6 w-12 h-12 bg-dark rounded-full flex items-center justify-center border border-white/10 shadow-lg">
+                            <i class="fab fa-angular text-red-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">Agentic AI Platform</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-3">Enterprise automation system built with Angular and Node.js. Features complex workflow orchestration and a custom UI component library.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded">Angular</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded">TypeScript</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded">Node.js</span>
+                        </div>
+                        <a href="#" class="text-sm text-gray-300 hover:text-white inline-flex items-center gap-1"><i class="fab fa-github"></i> Private Repo</a>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="glass-card rounded-2xl overflow-hidden group gs-reveal-up opacity-0 translate-y-[50px]">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-900/40 to-black mix-blend-overlay z-10"></div>
+                        <div class="w-full h-full flex items-center justify-center text-6xl text-white/10 group-hover:scale-110 transition-transform duration-700">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="p-6 relative">
+                        <div class="absolute -top-6 right-6 w-12 h-12 bg-dark rounded-full flex items-center justify-center border border-white/10 shadow-lg">
+                            <i class="fab fa-react text-blue-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">Scalable CRM Engine</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-3">Next.js based CRM web application featuring dynamic dashboards, AI integrated workflows, and heavily optimized data rendering.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded">Next.js</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded">MUI</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded">AWS</span>
+                        </div>
+                        <a href="#" class="text-sm text-gray-300 hover:text-white inline-flex items-center gap-1"><i class="fab fa-github"></i> Private Repo</a>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 (GitHub placeholder) -->
+                <div class="glass-card rounded-2xl overflow-hidden group gs-reveal-up opacity-0 translate-y-[50px]">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-green-900/40 to-black mix-blend-overlay z-10"></div>
+                        <div class="w-full h-full flex items-center justify-center text-6xl text-white/10 group-hover:scale-110 transition-transform duration-700">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                    <div class="p-6 relative">
+                        <div class="absolute -top-6 right-6 w-12 h-12 bg-dark rounded-full flex items-center justify-center border border-white/10 shadow-lg">
+                            <i class="fab fa-node-js text-green-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">Eco-commerce Platform</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-3">Full stack platform integrating Firebase auth, real-time updates, cloud storage and mobile companion app.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded">React Native</span>
+                            <span class="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded">Firebase</span>
+                        </div>
+                        <a href="https://github.com/skynet-bit" target="_blank" class="text-sm text-accent hover:text-white inline-flex items-center gap-1"><i class="fab fa-github"></i> View on GitHub</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Education small block -->
+            <div class="mt-20 border-t border-white/10 pt-12 gs-reveal-up opacity-0 translate-y-[30px]">
+                 <h3 class="text-2xl font-display font-bold mb-6 text-center">Education</h3>
+                 <div class="flex flex-wrap justify-center gap-8 text-center">
+                     <div>
+                         <p class="font-bold text-white">B.A. English</p>
+                         <p class="text-sm text-gray-500">2025 - 2028</p>
+                     </div>
+                     <div class="hidden md:block w-px bg-white/20"></div>
+                     <div>
+                         <p class="font-bold text-white">B.Tech. CSE</p>
+                         <p class="text-sm text-gray-500">2015 - 2019</p>
+                     </div>
+                     <div class="hidden md:block w-px bg-white/20"></div>
+                     <div>
+                         <p class="font-bold text-white">Sri Chaitanya Junior College</p>
+                         <p class="text-sm text-gray-500">2013 - 2015</p>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-darker py-8 border-t border-white/10 mt-10">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="https://github.com/skynet-bit" target="_blank" class="text-gray-400 hover:text-white text-2xl transition-colors">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:aravindhakshay97@gmail.com" class="text-gray-400 hover:text-white text-2xl transition-colors">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <p class="text-gray-500 text-sm">
+                &copy; <span id="year"></span> S. Aravindh Akshay. Designed with inspiration.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            // Set current year
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // Mobile menu toggle
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.add('hidden');
+                });
+            });
+
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-lg', 'bg-darker/80');
+                    navbar.classList.remove('bg-transparent');
+                } else {
+                    navbar.classList.remove('shadow-lg', 'bg-darker/80');
+                }
+            });
+
+            // Expand older jobs
+            const showMoreBtn = document.getElementById('show-more-jobs');
+            if(showMoreBtn) {
+                showMoreBtn.addEventListener('click', function() {
+                    const earlierJobs = document.getElementById('earlier-jobs');
+                    earlierJobs.classList.toggle('hidden');
+                    if(earlierJobs.classList.contains('hidden')) {
+                        this.textContent = 'View Earlier Experience';
+                    } else {
+                        this.textContent = 'Hide Earlier Experience';
+                        // trigger resize for scrolltrigger if needed
+                        ScrollTrigger.refresh();
+                    }
+                });
+            }
+
+            // Create Starfield effect (Video Inspiration)
+            const starfield = document.getElementById('starfield');
+            const numStars = 150;
+            const colors = ['', 'blue', 'purple']; // Empty string is default white
+
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random properties
+                const size = Math.random() * 3;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const duration = 1 + Math.random() * 4;
+                const delay = Math.random() * 5;
+                const colorClass = colors[Math.floor(Math.random() * colors.length)];
+                
+                if (colorClass) star.classList.add(colorClass);
+
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${x}vw`;
+                star.style.top = `${y}vh`;
+                star.style.setProperty('--duration', `${duration}s`);
+                star.style.animationDelay = `${delay}s`;
+
+                starfield.appendChild(star);
+            }
+
+            // --- GSAP ANIMATIONS ---
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 1. Hero Animations (inspired by the large text reveal in video)
+            const heroTl = gsap.timeline();
+            
+            // Text line reveals
+            heroTl.to(".hero-text", {
+                y: "0%",
+                opacity: 1,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power4.out",
+                delay: 0.2
+            })
+            // Fade in surrounding elements
+            .to(".hero-elem", {
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power2.out"
+            }, "-=0.5");
+
+            // 2. Scroll-driven animations for sections
+            
+            // Reveal Up elements
+            gsap.utils.toArray('.gs-reveal-up').forEach(function(elem) {
+                gsap.to(elem, {
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 85%", 
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "power3.out"
+                });
+            });
+
+            // Reveal Left (Image)
+            gsap.utils.toArray('.gs-reveal-left').forEach(function(elem) {
+                gsap.to(elem, {
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 80%",
+                    },
+                    x: 0,
+                    opacity: 1,
+                    duration: 1,
+                    ease: "power3.out"
+                });
+            });
+
+            // Reveal Right (Text)
+            gsap.utils.toArray('.gs-reveal-right').forEach(function(elem) {
+                gsap.to(elem, {
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 80%",
+                    },
+                    x: 0,
+                    opacity: 1,
+                    duration: 1,
+                    ease: "power3.out"
+                });
+            });
+
+            // Timeline staggered animations
+            gsap.utils.toArray('.job-card').forEach((card, i) => {
+                const target = card.querySelector('.gs-reveal-timeline');
+                if(target) {
+                    gsap.to(target, {
+                        scrollTrigger: {
+                            trigger: card,
+                            start: "top 85%",
+                        },
+                        x: 0,
+                        opacity: 1,
+                        duration: 0.8,
+                        ease: "back.out(1.2)"
+                    });
+                }
+            });
+
+            // Skill bars animation on scroll
+            gsap.utils.toArray('.skill-item .bg-accent').forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%'; // Reset for animation
+                
+                gsap.to(bar, {
+                    scrollTrigger: {
+                        trigger: bar.closest('.skill-item'),
+                        start: "top 90%",
+                    },
+                    width: width,
+                    duration: 1.5,
+                    ease: "power4.out",
+                    delay: 0.2
+                });
+            });
+            
+            // Parallax effect on starfield slightly on scroll
+            gsap.to("#starfield", {
+                scrollTrigger: {
+                    trigger: "body",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 1
+                },
+                y: -100 // Slight upward movement
+            });
+        });
+    </script>
 </body>
 </html>
